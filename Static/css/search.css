@@ -1,0 +1,20 @@
+.search {
+  margin-left: 40px;
+  margin-top: 13px;
+}
+
+.search input[type=text] {
+  width: 300px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 100px;
+  font-size: 16px;
+  padding: 7px 12px;
+}
+
+.nothing {
+  width: 1186px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
