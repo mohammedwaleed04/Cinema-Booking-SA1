@@ -5,11 +5,19 @@ const movieSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Title field is required']
     },
-    // picture: {
-    //     data: Buffer,
-    //     contentType: String
-    // },
+    stitle: {
+        type: String,
+        required: [true, 'Title field is required']
+    },
+    picture: {
+        type: String,
+        required: [true, 'Review field is required']
+    },
     description: {
+        type: String,
+        required: [true, 'Review field is required']
+    },
+    release: {
         type: String,
         required: [true, 'Review field is required']
     },
