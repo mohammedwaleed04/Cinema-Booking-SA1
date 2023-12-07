@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ticket Booking</title>
+    <link rel="stylesheet" type="text/css" href="/css/style-starter.css">
+    <style>
+        .mine {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .mine h1 {
+            color: black;
+            position: absolute;
+            top: 100px;
+        }
+
+        .mine h2 {
+            color: black;
+        }
+
+        .imgands {
+            position: relative;
+            top: 200px;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .imgands div {
+            margin: 0px 100px;
+        }
+
+        .imgands label {
+            display: block;
+            margin-bottom: 8px;
+            color: black;
+        }
+
+        .imgands select {
+            width: 200px;
+            padding: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .screen {
+            background-color: #3d3c3c;
+            width: 530px;
+            height: 25px;
+            display: flex;
+            color: #fff;
+            font-weight: 350;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .seat-map {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .seat.selectedseat {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .ss {
+            position: relative;
+            top: 100px;
+            margin: 150px 0px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 15px;
+            background-color: #d2d4d3;
+        }
+
+        .ss * {
+            margin: 15px 35px;
+        }
+
+        .ss h2 {
+            color: #3d3c3c;
+        }
+
+        .food label {
+            font-size: 30px;
+            color: #3d3c3c;
+            font-weight: bold;
+        }
+
+        .food {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+            padding: 10px;
+        }
+
+        .items-container {
+            display: flex;
+            justify-content: space-between;
+            /* Adjust as needed */
+            align-items: center;
+            margin: 20px;
+            /* Add margin as needed */
+        }
+
+        .items-container img {
+            max-width: auto;
+            /* Set a max width for the images */
+            height: 130px;
+        }
+
+        .item-container {
+            text-align: center;
+            margin: 0 30px;
+        }
+
+        .item-container:hover {
+            transform: scale(1.1);
+            /* Optional: Add a scale effect on hover */
+        }
+
+        .item-container.selectedfood {
+            border: 2px solid #df0e62;
+            /* Highlight the selected item with a border */
+        }
+
+        .it {
+            display: flex;
+            flex-direction: column;
+            margin: 30px 50px;
+        }
+
+        .mid {
+            display: flex;
+        }
+
+        input {
+            box-sizing: border-box;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 2px 10px;
+        }
+
+        .pay {
+            margin: 50px 0px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #d2d4d3;
+            padding: 30px;
+        }
+
+        button {
+            background-color: #df0e62;
+            /* Green */
+            border: none;
+            border-radius: 4px;
+            color: white;
+            padding: 10px 42px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 30px 0px;
+        }
+    </style>
+
+
+    <!-- ..............For progress-bar............... -->
+
+    <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700" rel="stylesheet">
+</head>
+
+<body>
+    <header id="site-header" class="w3l-header fixed-top">
+
+        <!--/nav-->
+        <nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
+            <div class="container">
+                <h1><a class="navbar-brand" href="http://192.168.1.3:3000/home"><span class="fa fa-play icon-log"
+                            aria-hidden="true"></span>
+                        MyShowz </a></h1>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                </div>
+
+                <div class="Login_SignUp" id="login_s">
+                    <!-- style="font-size: 2rem ; display: inline-block; position: relative;" -->
+                    <!-- <li class="nav-item"> -->
+                    <a class="nav-link" href="http://192.168.1.3:3000/profile?username={{user.name}}"><i class="fa fa-user-circle-o"></i></a>
+                    <!-- </li> -->
+                </div>
+                <!-- toggle switch for light and dark theme -->
+                <div class="mobile-position">
+                    <nav class="navigation">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                            </label>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="mine">
+        <h1>Ticket Booking</h1>
+        <div class="imgands">
+            <img src="{{movies.picture}}" style="width:auto; height:360px;">
+            <div>
+                <label for="scinema">Select Cinema:</label>
+                <select id="scinema">
+                    <option value="vox">VOX Cinema</option>
+                    <option value="americana plaza">Americana Plaza Cinema</option>
+                    <option value="cairo festival">Cairo Festival Cinema</option>
+                </select>
+                <label for="sday">Select Show Day:</label>
+                <select id="sday">
+                    <option value="sunday">SUNDAY</option>
+                    <option value="monday">MONDAY</option>
+                    <option value="tuesday">TUESDAY</option>
+                    <option value="wednesday">WEDNESDAY</option>
+                    <option value="thursday">THURSDAY</option>
+                    <option value="friday">FRIDAY</option>
+                    <option value="saturday">SATURDAY</option>
+                </select>
+                <label for="stime">Select Show Time:</label>
+                <select id="stime">
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="1:00 PM">1:00 PM</option>
+                    <option value="4:00 PM">4:00 PM</option>
+                    <option value="7:00 PM">7:00 PM</option>
+                </select>
+                <label for="sscreen">Select Screen:</label>
+                <select id="sscreen">
+                    <option value="1">Screen 1</option>
+                    <option value="2">Screen 2</option>
+                    <option value="3">Screen 3</option>
+                    <option value="4">Screen 4</option>
+                </select>
+            </div>
+        </div>
+        <div class="ss">
+            <h2>Seat Selection</h2>
+            <div class="screen">SCREEN</div>
+            <div class="seat-map">
+                <div class="seat" onclick="toggleSeat(this)">1</div>
+                <div class="seat" onclick="toggleSeat(this)">2</div>
+                <div class="seat" onclick="toggleSeat(this)">3</div>
+                <div class="seat" onclick="toggleSeat(this)">4</div>
+                <div class="seat" onclick="toggleSeat(this)">5</div>
+                <div class="seat" onclick="toggleSeat(this)">6</div>
+                <div class="seat" onclick="toggleSeat(this)">7</div>
+                <div class="seat" onclick="toggleSeat(this)">8</div>
+                <div class="seat" onclick="toggleSeat(this)">9</div>
+                <div class="seat" onclick="toggleSeat(this)">10</div>
+                <div class="seat" onclick="toggleSeat(this)">11</div>
+                <div class="seat" onclick="toggleSeat(this)">12</div>
+                <div class="seat" onclick="toggleSeat(this)">13</div>
+                <div class="seat" onclick="toggleSeat(this)">14</div>
+                <div class="seat" onclick="toggleSeat(this)">15</div>
+                <div class="seat" onclick="toggleSeat(this)">16</div>
+                <div class="seat" onclick="toggleSeat(this)">17</div>
+                <div class="seat" onclick="toggleSeat(this)">18</div>
+                <div class="seat" onclick="toggleSeat(this)">19</div>
+                <div class="seat" onclick="toggleSeat(this)">20</div>
+                <div class="seat" onclick="toggleSeat(this)">21</div>
+                <div class="seat" onclick="toggleSeat(this)">22</div>
+                <div class="seat" onclick="toggleSeat(this)">23</div>
+                <div class="seat" onclick="toggleSeat(this)">24</div>
+                <div class="seat" onclick="toggleSeat(this)">25</div>
+            </div>
+        </div>
+        <div class="food">
+            <div>
+                <label for="food">Select Food:</label>
+            </div>
+            <div class="items-container">
+                <div class="item-container" name="chocolate" onclick="selectItem(this)">
+                    <img src="/images/chocolate.jpeg" alt="chocolate">
+                    <h4>Chocolate</h4>
+                </div>
+                <div class="item-container" name="popcorn" onclick="selectItem(this)">
+                    <img src="/images/popcorn.jpeg" alt="popcorn">
+                    <h4>Popcorn</h4>
+                </div>
+                <div class="item-container" name="nachos" onclick="selectItem(this)">
+                    <img src="/images/nachos.jpeg" alt="nachos">
+                    <h4>Nachos</h4>
+                </div>
+                <div class="item-container" name="pepsi" onclick="selectItem(this)">
+                    <img src="/images/pepsi.jpeg" alt="pepsi">
+                    <h4>Pepsi</h4>
+                </div>
+
+            </div>
+        </div>
+        <div class="pay">
+            <div>
+                <h3>Payment Information:</h3>
+            </div>
+            <div class="all">
+                <div class="mid">
+                    <div class="it">
+                        <label for="name">Card Holder Name:</label>
+                        <input type="text" size="20" id="name">
+                    </div>
+                    <div class="it">
+                        <label for="cnumber">Card Number:</label>
+                        <input type="text" size="20" id="cnumber">
+                    </div>
+                </div>
+                <div class="mid">
+                    <div class="it">
+                        <label for="exp">Expiration Date:</label>
+                        <input type="text" size="4" id="exp">
+                    </div>
+                    <div class="it">
+                        <label for="cvv">CVV:</label>
+                        <input type="text" size="3" id="cvv">
+                    </div>
+                    <div class="it">
+                        <label for="vip">Code for VIP:</label>
+                        <input type="text" size="11" id="vip">
+                    </div>
+                </div>
+            </div>
+            <button id="sub">Submit</button>
+            <h3>Total: <span id="total"></span></h3>
+        </div>
+
+        
+    </div>
+    <script>
+        function toggleSeat(seat) {
+            seat.classList.toggle('selectedseat');
+        }
+
+        function selectItem(element) {
+            element.classList.toggle('selectedfood');
+        }
+
+        const submit = document.querySelector('#sub');
+		submit.addEventListener('click', async (e) => {
+			e.preventDefault();
+            const cinema = document.querySelector('#scinema').options[document.querySelector('#scinema').selectedIndex];
+            const day = document.querySelector('#sday').options[document.querySelector('#sday').selectedIndex];
+            const hour = document.querySelector('#stime').options[document.querySelector('#stime').selectedIndex];
+            const screen = document.querySelector('#sscreen').options[document.querySelector('#sscreen').selectedIndex];
+            const selectedSeat = document.querySelectorAll('.selectedseat');
+            const seatList = [];
+            for (let i = 0; i < selectedSeat.length; i++) {
+                seatList.push(selectedSeat[i].innerHTML);
+            }
+            const selectedFood = document.querySelectorAll('.selectedfood');
+            const foodList = [];
+            for (let i = 0; i < selectedFood.length; i++) {
+                foodList.push(selectedFood[i].getAttribute('name'));
+            }
+            totala = 60*(seatList.length) + 10*(foodList.length);
+            totalavip = totala - 50;
+            let total;
+            const cname = document.querySelector('#name').value;
+            const cnumber = document.querySelector('#cnumber').value;
+            const exp = document.querySelector('#exp').value;
+            const cvv = document.querySelector('#cvv').value;
+            const vip = document.querySelector('#vip').value;
+            if(vip === "thisisvip" && totala >= 50) {
+                total = totalavip;
+            }
+            else {
+                total = totala;
+            }
+            const user = "{{user.name}}";
+            const info = {
+                username: user,
+                cinema: cinema.value,
+                day: day.value,
+                hour: hour.value,
+                screen: parseInt(screen.value),
+                seat: seatList,
+                food: foodList,
+                cardName: cname,
+                cardNumber: cnumber,
+                expirationDate: exp,
+                cvv: parseInt(cvv),
+                cost: total,
+            }
+            const url = window.location.href;
+            const urlObject = new URL(url);
+            const endpoint = urlObject.pathname;
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(info)
+                })
+                const data = await response.json();
+                if(data.message === "ticket booked successfully!") {
+                    location.assign('/home');
+                }
+                else {
+                    alert("error");
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        })
+
+        let totala;
+        const total = document.querySelector("#total");
+        document.addEventListener('click', async (e) => {
+            const vip = document.querySelector('#vip').value;
+            const selectedSeat = document.querySelectorAll('.selectedseat');
+            const seatList = [];
+            for (let i = 0; i < selectedSeat.length; i++) {
+                seatList.push(selectedSeat[i].innerHTML);
+            }
+            const selectedFood = document.querySelectorAll('.selectedfood');
+            const foodList = [];
+            for (let i = 0; i < selectedFood.length; i++) {
+                foodList.push(selectedFood[i].getAttribute('name'));
+            }
+            totala = 60*(seatList.length) + 10*(foodList.length);
+            totalu = totala - 5;
+            totalavipless5 = totala - ((totala*10)/100);
+            totalavipmore5 = totala - 25;
+            mealdiscount = totalavipmore5 - ((totalavipmore5*10)/100);
+            if(vip === "thisisvip" && seatList.length < 5) {
+                total.innerHTML = totalavipless5 + " EGP";
+            }
+            else if(foodList.length >= 2 && vip === "thisisvip" && seatList.length >= 5) {
+                console.log("meals")
+                total.innerHTML = mealdiscount + " EGP";
+            }
+            else if(vip === "thisisvip" && seatList.length >= 5) {
+                total.innerHTML = totalavipmore5 + " EGP";
+            }
+            else {
+                total.innerHTML = totalu + " EGP";
+            }
+            
+
+        })
+
+    </script>
+</body>
+
+
+</html>
